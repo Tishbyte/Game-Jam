@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Final Project Game Jam!.unity
+  isLoaded: 1
+  isActive: 1
