@@ -4,72 +4,35 @@ using UnityEngine;
 
 public class Lock : MonoBehaviour
 {
-
-    public GameObject leftHand, rightHand;
-    public string lockVal;
     public UnityEngine.UI.Text coinText;
 
-
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider collide)
     {
-        //This detects if the player touches the locks.
-        if (leftHand.transform.position.x >= transform.position.x - transform.lossyScale.x / 2 &&
-            leftHand.transform.position.x <= transform.position.x + transform.lossyScale.x / 2 &&
-            leftHand.transform.position.z >= transform.position.z - transform.lossyScale.z / 2 &&
-            leftHand.transform.position.z <= transform.position.z + transform.lossyScale.z / 2)
+        Debug.Log("Collision");
+        //This checks which lock the player touches.
+        if (collide.GetComponent<Collider>().name == "snowLock")
         {
-            //This checks which lock the player touches.
-            if (lockVal == "snow")
+            //This checks if the player has enough money.
+            if (GenerateTerrain.points >= 25)
             {
-                //This checks if the player has enough money.
-                if (GenerateTerrain.points >= 25)
-                {
-                    //This deducts the money from the player.
-                    GenerateTerrain.points = GenerateTerrain.points - 25;
-                    //This updates the money text.
-                    coinText.text = GenerateTerrain.points.ToString();
-                    //This sets the level to be purchased.
-                    GenerateTerrain.snowPurchase = true;
-                    //This removes the lock.
-                    Destroy(gameObject, 0);
-                }
-            }
-            else if (lockVal == "desert")
-            {
-                if (GenerateTerrain.points >= 50)
-                {
-                    GenerateTerrain.points = GenerateTerrain.points - 50;
-                    coinText.text = GenerateTerrain.points.ToString();
-                    GenerateTerrain.desertPurchase = true;
-                    Destroy(gameObject, 0);
-                }
+                //This deducts the money from the player.
+                GenerateTerrain.points = GenerateTerrain.points - 25;
+                //This updates the money text.
+                coinText.text = GenerateTerrain.points.ToString();
+                //This sets the level to be purchased.
+                GenerateTerrain.snowPurchase = true;
+                //This removes the lock.
+                Destroy(collide.gameObject, 0);
             }
         }
-        else if (rightHand.transform.position.x >= transform.position.x - transform.lossyScale.x / 2 &&
-            rightHand.transform.position.x <= transform.position.x + transform.lossyScale.x / 2 &&
-            rightHand.transform.position.z >= transform.position.z - transform.lossyScale.z / 2 &&
-            rightHand.transform.position.z <= transform.position.z + transform.lossyScale.z / 2)
+        else if (collide.GetComponent<Collider>().name == "desertLock")
         {
-            if (lockVal == "snow")
+            if (GenerateTerrain.points >= 50)
             {
-                if (GenerateTerrain.points >= 25)
-                {
-                    GenerateTerrain.points = GenerateTerrain.points - 25;
-                    coinText.text = GenerateTerrain.points.ToString();
-                    GenerateTerrain.snowPurchase = true;
-                    Destroy(gameObject, 0);
-                }
-            }
-            else if (lockVal == "desert")
-            {
-                if (GenerateTerrain.points >= 50)
-                {
-                    GenerateTerrain.points = GenerateTerrain.points - 50;
-                    coinText.text = GenerateTerrain.points.ToString();
-                    GenerateTerrain.desertPurchase = true;
-                    Destroy(gameObject, 0);
-                }
+                GenerateTerrain.points = GenerateTerrain.points - 50;
+                coinText.text = GenerateTerrain.points.ToString();
+                GenerateTerrain.desertPurchase = true;
+                Destroy(collide.gameObject, 0);
             }
         }
     }
