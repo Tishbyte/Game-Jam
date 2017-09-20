@@ -8,7 +8,6 @@ public class Lock : MonoBehaviour
 
     void OnTriggerEnter(Collider collide)
     {
-        Debug.Log("Collision");
         //This checks which lock the player touches.
         if (collide.GetComponent<Collider>().name == "snowLock")
         {
