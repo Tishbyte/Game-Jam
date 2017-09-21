@@ -46,7 +46,7 @@ public class Move : MonoBehaviour {
             //This checks where the user presses and moves them accordingly.
             if (touchpad.y > 0.6f && player.transform.position.z != 50)
             {
-                if (GenerateTerrain.terrainArray[(int)player.transform.position.x, (int)player.transform.position.z + 1].tag == "grass")
+                if (GenerateTerrain.terrainArray[(int)player.transform.position.x] [(int)player.transform.position.z + 1].tag == "grass")
                 {
                     player.transform.position = new Vector3(player.transform.position.x, 1, player.transform.position.z + 1);
                     //print("Moving Up");
@@ -56,7 +56,7 @@ public class Move : MonoBehaviour {
 
             else if (touchpad.y < -0.6f && player.transform.position.z != 0)
             {
-                if (GenerateTerrain.terrainArray[(int)player.transform.position.x, (int)player.transform.position.z - 1].tag == "grass")
+                if (GenerateTerrain.terrainArray[(int)player.transform.position.x][ (int)player.transform.position.z - 1].tag == "grass")
                 {
                     player.transform.position = new Vector3(player.transform.position.x, 1, player.transform.position.z - 1);
                     //print("Moving Down");
@@ -66,7 +66,7 @@ public class Move : MonoBehaviour {
 
             if (touchpad.x > 0.6f && player.transform.position.x != 11)
             {
-                if (GenerateTerrain.terrainArray[(int)player.transform.position.x + 1, (int)player.transform.position.z].tag == "grass")
+                if (GenerateTerrain.terrainArray[(int)player.transform.position.x + 1][ (int)player.transform.position.z].tag == "grass")
                 {
                     player.transform.position = new Vector3(player.transform.position.x + 1, 1, player.transform.position.z);
                     //print("Moving Right");
@@ -77,7 +77,7 @@ public class Move : MonoBehaviour {
 
             else if (touchpad.x < -0.6f && player.transform.position.x != 0)
             {
-                if (GenerateTerrain.terrainArray[(int)player.transform.position.x - 1, (int)player.transform.position.z].tag == "grass")
+                if (GenerateTerrain.terrainArray[(int)player.transform.position.x - 1][ (int)player.transform.position.z].tag == "grass")
                 {
                     player.transform.position = new Vector3(player.transform.position.x - 1, 1, player.transform.position.z);
                     //print("Moving left");

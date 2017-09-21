@@ -5,17 +5,20 @@ using UnityEngine;
 public class GenerateTerrain : MonoBehaviour {
 
     public static GameObject grass, tree, rock, rail, coin, player, road;
-    public static GameObject[,] terrainArray = new GameObject[11, 50];
+    //public static GameObject[,] terrainArray = new GameObject[21, 50];
+    public static List<List<GameObject>> terrainArray = new List<List<GameObject>>();
     public static GameObject[,] coinArray = new GameObject[11, 50];
     public UnityEngine.UI.Text coinText;
-    public static AudioClip music; 
+    public static AudioClip music;
     public AudioClip mainMusic;
     public static bool snowPurchase, desertPurchase;
     public static bool terrainBool;
     public static int points;
 
-	// Use this for initialization
-	void Start () {
+    private int x, y;
+
+    // Use this for initialization
+    void Start() {
         //This sets the terrain to not be generated.
         terrainBool = false;
 
@@ -26,10 +29,22 @@ public class GenerateTerrain : MonoBehaviour {
         //This sets the points to be zero.
         points = 0;
         player = gameObject;
+
+        x = 0;
+        y = 0;
+        for (int counter = 0; counter < 21; counter++)
+        {
+            terrainArray.Add(new List<GameObject>());
+            for (int counter2 = 0; counter2 < 40; counter2++)
+            {
+                terrainArray[counter].Add(null);
+            }
+        }
+        Random.seed = System.DateTime.Now.Millisecond;
     }
 
     void Update()
-    {
+    {/*
         //This checks if the player won.
         if (transform.position.z >= 49)
         {
@@ -44,7 +59,7 @@ public class GenerateTerrain : MonoBehaviour {
             //This sets and plays the menu music.
             player.GetComponent<AudioSource>().clip = mainMusic;
             playMusic();
-        }
+        }*/
     }
 
     //This function plays the music after connecting the clip to the source.
@@ -57,7 +72,76 @@ public class GenerateTerrain : MonoBehaviour {
     //This function generates the terrain.
     public void Generate()
     {
-        int randInt;
+        //Debug.Log("X: " + x + " Y: " + y + "/" + terrainArray[x][y]);
+        if (x == 20)
+        {
+            x = 0;
+            y++;
+        }
+
+        int terrainType = Random.Range(0, 100);
+
+        Debug.Log(terrainType);
+        //terrainType = 4;
+        if (terrainType == 0)
+        {
+            //Rails, road, river?
+            int dangerType = Random.Range(0, 2);
+            if (dangerType == 0)
+            {
+                //Train
+                for (int counter = 0; counter < 21; counter++)
+                {
+                    if (terrainArray[counter][y] != null)
+                    {
+                        Destroy(terrainArray[counter][y], 0);
+                    }
+                    terrainArray[counter][y] = Instantiate(rail, new Vector3(counter, 0, y), Quaternion.Euler(-90, 0, 0));
+                    terrainArray[counter][y].GetComponent<SpawnTrain>().player = player;
+                }
+                x = 0;
+                y++;
+            }
+            else
+            {
+                //car
+                for (int counter = 0; counter < 21; counter++)
+                {
+                    if (terrainArray[counter][y] != null)
+                    {
+                        Destroy(terrainArray[counter][y], 0);
+                    }
+                    terrainArray[counter][y] = Instantiate(road, new Vector3(counter, 0, y), Quaternion.Euler(-90, 0, 0));
+                    terrainArray[counter][y].GetComponent<spawnCar>().player = player;
+                }
+                x = 0;
+                y++;
+            }
+        }
+        else
+        {
+            //Land and obstacles.
+            int randInt = Random.Range(0, 15);
+            if (randInt == 0)
+            {
+                //Plant
+                terrainArray[x][y] = Instantiate(tree, new Vector3(x, 0, y), Quaternion.Euler(-90, 0, 0));
+            }
+            else if (randInt == 1)
+            {
+                //Obstacle
+                terrainArray[x][y] = Instantiate(rock, new Vector3(x, 0, y), Quaternion.Euler(-90, 0, 0));
+            }
+            else
+            {
+                //Land
+                terrainArray[x][y] = Instantiate(grass, new Vector3(x, 0, y), Quaternion.Euler(-90, 0, 0));
+            }
+            x++;
+        }
+
+
+        /*int randInt;
 
         for (int counter1 = 0; counter1 < 11; counter1++)
         {
@@ -113,9 +197,16 @@ public class GenerateTerrain : MonoBehaviour {
         Coins();
 
         //This sets the terrain generation to true.
-        terrainBool = true;
+        terrainBool = true;*/
     }
 
+    public void Initial(){
+        while(y < 40)
+        {
+            Generate();
+        }
+    }
+    
     //This is the function that deletes the terrain.
     public void Delete()
     {
@@ -123,7 +214,7 @@ public class GenerateTerrain : MonoBehaviour {
         {
             for (int counter2 = 0; counter2 < 50; counter2++)
             {
-                Destroy(terrainArray[counter1, counter2], 0);
+                Destroy(terrainArray[counter1][ counter2], 0);
                 Destroy(coinArray[counter1, counter2], 0);
             }
         }
@@ -141,7 +232,7 @@ public class GenerateTerrain : MonoBehaviour {
         {
             for (int counter2 = 0; counter2 < 50; counter2++)
             {
-                if (terrainArray[counter1, counter2].tag == "grass")
+                if (terrainArray[counter1][ counter2].tag == "grass")
                 {
                     randInt = Random.Range(0, 75);
                     if (randInt == 0)
