@@ -9,8 +9,9 @@ public class spawnCar : MonoBehaviour {
     // Update is called once per frame
     void Start()
     {
+        Random.seed = System.DateTime.Now.Millisecond;
         //This starts spawning cars for the road block that is on the right side.
-        if (transform.position.x == 10)
+        if (transform.position.x == 20)
         {
             InvokeRepeating("spawn", 0, 1);
         }
@@ -24,7 +25,7 @@ public class spawnCar : MonoBehaviour {
         //This generates a car at a random interval.
         if (randInt == 0) {
             GameObject temp = Instantiate(car, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.Euler(0, -90, 0));
-            Destroy(temp, 2);
+            Destroy(temp, 4);
             temp.GetComponent<Car>().player = player;
         }
     }

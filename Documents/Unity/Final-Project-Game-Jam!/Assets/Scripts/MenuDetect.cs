@@ -53,7 +53,7 @@ public class MenuDetect : MonoBehaviour {
 
                 player.GetComponent<GenerateTerrain>().playMusic();
                 //This makes the terrain generate.
-                player.GetComponent<GenerateTerrain>().Initial();
+                player.GetComponent<GenerateTerrain>().Initial(840);
                 //This tps the player to the right spot.
                 player.transform.position = new Vector3(10, 1, 0);
             }
