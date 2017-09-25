@@ -5,7 +5,6 @@ using UnityEngine;
 public class GenerateTerrain : MonoBehaviour {
 
     public static GameObject grass, tree, rock, rail, coin, player, road;
-    //public static GameObject[,] terrainArray = new GameObject[21, 50];
     public static List<List<GameObject>> terrainArray = new List<List<GameObject>>();
     public static List<List<GameObject>> coinArray = new List<List<GameObject>>();
     public UnityEngine.UI.Text coinText;
@@ -71,12 +70,6 @@ public class GenerateTerrain : MonoBehaviour {
     public int Generate()
     {
 
-        if (x == 21)
-        {
-            x = 0;
-            z++;
-        }
-
         int terrainType = Random.Range(0, 100);
         //terrainType = 4;
         if (terrainType == 0)
@@ -105,8 +98,6 @@ public class GenerateTerrain : MonoBehaviour {
                     terrainArray[counter][z] = Instantiate(rail, new Vector3(counter, 0, z), Quaternion.Euler(-90, 0, 0));
                     terrainArray[counter][z].GetComponent<SpawnTrain>().player = player;
                 }
-                x = 0;
-                z++;
             }
             else
             {
@@ -129,9 +120,9 @@ public class GenerateTerrain : MonoBehaviour {
                     terrainArray[counter][z] = Instantiate(road, new Vector3(counter, 0, z), Quaternion.Euler(-90, 90, 0));
                     terrainArray[counter][z].GetComponent<spawnCar>().player = player;
                 }
-                x = 0;
-                z++;
             }
+            x = 0;
+            z++;
             return returnInt;
         }
         else
@@ -161,6 +152,11 @@ public class GenerateTerrain : MonoBehaviour {
                 terrainArray[x][z] = Instantiate(grass, new Vector3(x, 0, z), Quaternion.Euler(-90, 0, 0));
             }
             x++;
+            if (x == 21)
+            {
+                x = 0;
+                z++;
+            }
             return 1;
         }
     }
@@ -172,9 +168,11 @@ public class GenerateTerrain : MonoBehaviour {
             counter = counter - Generate();
         }
 
-        for (int counter2 = 0; counter2 < 21; counter2++) {
-            Destroy(terrainArray[counter2][0], 0);
-            terrainArray[counter2][0] = Instantiate(grass, new Vector3(counter2, 0, 0), Quaternion.Euler(-90, 0, 0));
+        if (num > 800) {
+            for (int counter2 = 0; counter2 < 21; counter2++) {
+                Destroy(terrainArray[counter2][0], 0);
+                terrainArray[counter2][0] = Instantiate(grass, new Vector3(counter2, 0, 0), Quaternion.Euler(-90, 0, 0));
+            }
         }
 
         //This sets the terrain generation to true.
@@ -186,7 +184,7 @@ public class GenerateTerrain : MonoBehaviour {
     {
         for (int counter1 = 0; counter1 < 21; counter1++)
         {
-            for (int counter2 = 0; counter2 <= z; counter2++)
+            for (int counter2 = 0; counter2 < z; counter2++)
             {
                 if (terrainArray[counter1][counter2] != null)
                 {

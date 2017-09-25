@@ -37,6 +37,8 @@ public class Move : MonoBehaviour {
             //This deletes and regenerates the terrain.
             player.GetComponent<GenerateTerrain>().Delete();
             player.GetComponent<GenerateTerrain>().Initial(840);
+            lowestZ = 0;
+            farthestZ = 0;
         }
 
         //This checks if the user presses the touchpad.
