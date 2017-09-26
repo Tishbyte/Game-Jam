@@ -38,7 +38,7 @@ public class MenuDetect : MonoBehaviour {
                     GenerateTerrain.rock = rock;
                     GenerateTerrain.coin = coin;
                     GenerateTerrain.road = road;
-                    player.GetComponent<AudioSource>().clip = grassMusic;
+                    RenderSettings.fog = true;
                 }
                 else if (menuChoice == "sand" && GenerateTerrain.desertPurchase)
                 {

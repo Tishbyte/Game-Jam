@@ -10,9 +10,11 @@ public class Move : MonoBehaviour {
     //This activates the controller tracking.
     SteamVR_TrackedObject trackedObj;
     SteamVR_Controller.Device device;
+    public GameObject reset, menu;
 
     public static int lowestZ = 0;
     public static int farthestZ = 0;
+    public static bool lost = false;
 
     void Awake()
     {
@@ -31,18 +33,20 @@ public class Move : MonoBehaviour {
         //This checks if the user clicks the reset button.
         if (SteamVR_Controller.Input((int)trackedObj.index).GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
         {
-            //This resets the position.
-            player.transform.position = new Vector3(10, 1, 0);
-
-            //This deletes and regenerates the terrain.
-            player.GetComponent<GenerateTerrain>().Delete();
-            player.GetComponent<GenerateTerrain>().Initial(840);
-            lowestZ = 0;
-            farthestZ = 0;
+            if (reset.activeInHierarchy == false && player.transform.position != new Vector3(5, 25, 0))
+            {
+                reset.active = true;
+                menu.active = true;
+            }
+            else if(reset.activeInHierarchy == true && player.transform.position != new Vector3(0, 15, 0))
+            {
+                reset.active = false;
+                menu.active = false;
+            }
         }
 
         //This checks if the user presses the touchpad.
-        if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
+        if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && lost == false)
         {
             //This gets the 2D position.
             Vector2 touchpad = (device.GetAxis(EVRButtonId.k_EButton_Axis0));

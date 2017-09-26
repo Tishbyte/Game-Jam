@@ -13,6 +13,7 @@ public class GenerateTerrain : MonoBehaviour {
     public static bool snowPurchase, desertPurchase;
     public static bool terrainBool;
     public static int points;
+    public GameObject reset, menu;
 
     public static int x, z;
 
@@ -42,21 +43,9 @@ public class GenerateTerrain : MonoBehaviour {
             }
         }
         Random.seed = System.DateTime.Now.Millisecond;
-    }
 
-    void Update()
-    {/*
-        //This checks if the player won.
-        if (transform.position.z >= 49)
-        {
-            //This teleports the player to the menu.
-            transform.position = new Vector3(5, 25, 0);
-
-
-            //This sets and plays the menu music.
-            player.GetComponent<AudioSource>().clip = mainMusic;
-            playMusic();
-        }*/
+        RenderSettings.fogColor = Color.white;
+        RenderSettings.fog = true;
     }
 
     //This function plays the music after connecting the clip to the source.
@@ -220,6 +209,9 @@ public class GenerateTerrain : MonoBehaviour {
     //This function resets the player back to the beginning of the map.
     public void ResetPlayer()
     {
-        transform.position = new Vector3(10, 1, 0);
+        Move.lost = true;
+        reset.active = true;
+        menu.active = true;
+        transform.position = new Vector3(0, 15, 0);
     }
 }
