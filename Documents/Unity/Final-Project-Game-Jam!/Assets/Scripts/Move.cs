@@ -57,6 +57,7 @@ public class Move : MonoBehaviour {
             {
                 if (GenerateTerrain.terrainArray[(int)player.transform.position.x] [(int)player.transform.position.z + 1].tag == "grass")
                 {
+                    Best.newBest((int)player.transform.position.z);
                     player.transform.position = new Vector3(player.transform.position.x, 1, player.transform.position.z + 1);
                     //print("Moving Up");
 

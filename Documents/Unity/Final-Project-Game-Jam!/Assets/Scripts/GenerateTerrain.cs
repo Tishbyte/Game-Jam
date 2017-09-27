@@ -13,7 +13,7 @@ public class GenerateTerrain : MonoBehaviour {
     public static bool snowPurchase, desertPurchase;
     public static bool terrainBool;
     public static int points;
-    public GameObject reset, menu;
+    public GameObject reset, menu, best;
 
     public static int x, z;
 
@@ -43,9 +43,9 @@ public class GenerateTerrain : MonoBehaviour {
             }
         }
         Random.seed = System.DateTime.Now.Millisecond;
-
+        /*
         RenderSettings.fogColor = Color.white;
-        RenderSettings.fog = true;
+        RenderSettings.fog = true;*/
     }
 
     //This function plays the music after connecting the clip to the source.
@@ -209,6 +209,7 @@ public class GenerateTerrain : MonoBehaviour {
     //This function resets the player back to the beginning of the map.
     public void ResetPlayer()
     {
+        best.GetComponent<Best>().moveBest();
         Move.lost = true;
         reset.active = true;
         menu.active = true;

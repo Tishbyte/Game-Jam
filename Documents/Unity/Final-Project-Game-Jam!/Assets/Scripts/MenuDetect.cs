@@ -38,7 +38,6 @@ public class MenuDetect : MonoBehaviour {
                     GenerateTerrain.rock = rock;
                     GenerateTerrain.coin = coin;
                     GenerateTerrain.road = road;
-                    RenderSettings.fog = true;
                 }
                 else if (menuChoice == "sand" && GenerateTerrain.desertPurchase)
                 {

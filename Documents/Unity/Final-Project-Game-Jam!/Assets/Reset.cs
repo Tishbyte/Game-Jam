@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Reset : MonoBehaviour
 {
-    public GameObject generate, menu;
+    public GameObject generate, menu, best;
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +15,7 @@ public class Reset : MonoBehaviour
                 Move.lost = false;
             }
 
+            best.GetComponent<Best>().moveBest();
             generate.GetComponent<GenerateTerrain>().Delete();
             generate.GetComponent<GenerateTerrain>().Initial(840);
             Move.lowestZ = 0;

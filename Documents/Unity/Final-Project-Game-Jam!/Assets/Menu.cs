@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour {
 
-    public GameObject generate, reset;
+    public GameObject generate, reset, best;
     public AudioClip menuMusic;
 
     void OnTriggerEnter(Collider other)
@@ -16,6 +16,7 @@ public class Menu : MonoBehaviour {
                 Move.lost = false;
             }
 
+            best.GetComponent<Best>().moveBest();
             generate.GetComponent<GenerateTerrain>().Delete();
             generate.GetComponent<AudioSource>().clip = menuMusic;
             generate.GetComponent<GenerateTerrain>().playMusic();
