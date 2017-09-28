@@ -6,6 +6,7 @@ TagManager:
   tags:
   - grass
   - obstacle
+  - danger
   layers:
   - Default
   - TransparentFX

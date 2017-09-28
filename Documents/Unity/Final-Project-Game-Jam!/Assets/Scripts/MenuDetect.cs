@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuDetect : MonoBehaviour {
 
     public GameObject grass, tree, rock, rail, snow, snowRail, pine, present, leftHand, rightHand, player, coin, chocolate, road,
-        sand, sandRail, skull, cactus;
+        sand, sandRail, skull, cactus, hole, water, ice;
     public string menuChoice;
     public AudioClip desertMusic, snowMusic, grassMusic;
 
@@ -26,6 +26,7 @@ public class MenuDetect : MonoBehaviour {
                     GenerateTerrain.rock = present;
                     GenerateTerrain.coin = chocolate;
                     GenerateTerrain.road = road;
+                    GenerateTerrain.danger = ice;
 
                     //This assigns the appropriate music and plays it.
                     player.GetComponent<AudioSource>().clip = snowMusic;
@@ -38,6 +39,7 @@ public class MenuDetect : MonoBehaviour {
                     GenerateTerrain.rock = rock;
                     GenerateTerrain.coin = coin;
                     GenerateTerrain.road = road;
+                    GenerateTerrain.danger = water;
                 }
                 else if (menuChoice == "sand" && GenerateTerrain.desertPurchase)
                 {
@@ -47,6 +49,7 @@ public class MenuDetect : MonoBehaviour {
                     GenerateTerrain.rock = skull;
                     GenerateTerrain.coin = coin;
                     GenerateTerrain.road = road;
+                    GenerateTerrain.danger = hole;
                     player.GetComponent<AudioSource>().clip = desertMusic;
                 }
 

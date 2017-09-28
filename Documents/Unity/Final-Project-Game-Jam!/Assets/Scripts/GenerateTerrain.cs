@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GenerateTerrain : MonoBehaviour {
 
-    public static GameObject grass, tree, rock, rail, coin, player, road;
+    public static GameObject grass, tree, rock, rail, coin, player, road, danger;
     public static List<List<GameObject>> terrainArray = new List<List<GameObject>>();
     public static List<List<GameObject>> coinArray = new List<List<GameObject>>();
     public UnityEngine.UI.Text coinText;
@@ -43,9 +43,6 @@ public class GenerateTerrain : MonoBehaviour {
             }
         }
         Random.seed = System.DateTime.Now.Millisecond;
-        /*
-        RenderSettings.fogColor = Color.white;
-        RenderSettings.fog = true;*/
     }
 
     //This function plays the music after connecting the clip to the source.
@@ -64,7 +61,7 @@ public class GenerateTerrain : MonoBehaviour {
         if (terrainType == 0)
         {
             int returnInt = 21;
-            //Rails, road, river?
+            //Rails and road.
             int dangerType = Random.Range(0, 2);
             if (dangerType == 0)
             {
@@ -127,6 +124,11 @@ public class GenerateTerrain : MonoBehaviour {
             {
                 //Obstacle
                 terrainArray[x][z] = Instantiate(rock, new Vector3(x, 0, z), Quaternion.Euler(-90, 0, 0));
+            }
+            else if (randInt == 2)
+            {
+                //Danger
+                terrainArray[x][z] = Instantiate(danger, new Vector3(x, 0, z), Quaternion.Euler(-90, 0, 0));
             }
             else
             {

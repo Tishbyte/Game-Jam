@@ -23,8 +23,8 @@ public class Menu : MonoBehaviour {
             Move.lowestZ = 0;
             Move.farthestZ = 0;
             generate.transform.position = new Vector3(5, 25, 0);
-            RenderSettings.fogColor = Color.white;
-            RenderSettings.fog = true;
+            /*RenderSettings.fogColor = Color.white;
+            RenderSettings.fog = true;*/
             reset.gameObject.active = false;
             gameObject.active = false;
         }

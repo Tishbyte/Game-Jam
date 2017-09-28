@@ -46,7 +46,7 @@ public class Move : MonoBehaviour {
         }
 
         //This checks if the user presses the touchpad.
-        if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && lost == false)
+        if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) && lost == false && player.transform.position != new Vector3(5, 25, 0))
         {
             //This gets the 2D position.
             Vector2 touchpad = (device.GetAxis(EVRButtonId.k_EButton_Axis0));
@@ -85,6 +85,10 @@ public class Move : MonoBehaviour {
                         }
                     }
                 }
+                else if (GenerateTerrain.terrainArray[(int)player.transform.position.x][(int)player.transform.position.z + 1].tag == "danger")
+                {
+                    player.GetComponent<GenerateTerrain>().ResetPlayer();
+                }
                 
             }
 
@@ -95,7 +99,11 @@ public class Move : MonoBehaviour {
                     player.transform.position = new Vector3(player.transform.position.x, 1, player.transform.position.z - 1);
                     //print("Moving Down");
                 }
-                
+                else if (GenerateTerrain.terrainArray[(int)player.transform.position.x][(int)player.transform.position.z - 1].tag == "danger")
+                {
+                    player.GetComponent<GenerateTerrain>().ResetPlayer();
+                }
+
             }
 
             if (touchpad.x > 0.6f && player.transform.position.x != 20)
@@ -105,8 +113,10 @@ public class Move : MonoBehaviour {
                     player.transform.position = new Vector3(player.transform.position.x + 1, 1, player.transform.position.z);
                     //print("Moving Right");
                 }
-                
-
+                else if (GenerateTerrain.terrainArray[(int)player.transform.position.x + 1][(int)player.transform.position.z].tag == "danger")
+                {
+                    player.GetComponent<GenerateTerrain>().ResetPlayer();
+                }
             }
 
             else if (touchpad.x < -0.6f && player.transform.position.x != 0)
@@ -116,7 +126,10 @@ public class Move : MonoBehaviour {
                     player.transform.position = new Vector3(player.transform.position.x - 1, 1, player.transform.position.z);
                     //print("Moving left");
                 }
-                
+                else if (GenerateTerrain.terrainArray[(int)player.transform.position.x - 1][(int)player.transform.position.z].tag == "danger")
+                {
+                    player.GetComponent<GenerateTerrain>().ResetPlayer();
+                }
             }
 
         }
